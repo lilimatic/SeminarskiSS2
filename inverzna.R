@@ -11,6 +11,7 @@ inverzna_transformacija = function(T_n,Lambda,n) {
     t=min(a[which(Vectorize(Lambda)(a)>=s)])
     T=c(T,t)
   }
+  return(T)
 }
 
 
