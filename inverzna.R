@@ -11,5 +11,4 @@ inverzna_transformacija = function(T_n,Lambda,n) {
   }
 }
 
-inverzna_transformacija(10,3)
 
