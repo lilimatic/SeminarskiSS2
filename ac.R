@@ -12,8 +12,6 @@ ac = function(){
       if (u1 <= Lambda(t)/lambdafix) {
         ifelse(runif(1) >= 0.5, return(y), return(-y))
       }
-    X=c(X,t)
-        return(X)
   }
 
 
