@@ -1,10 +1,10 @@
 #Brojimo broj dogadjaja do trenutka T
 set.seed(1)
 broj_dogadjaja = function(T,t){
-  if(sum(t)<t)
+  if(sum(T)<t)
     return(NA)
   #Ako se prvi dogadjaj desio posle t, nije doslo do nijednog dogadjaja
-  if(t[1]>t)
+  if(T[1]>t)
     return(0)
   else
     #vraca maksimum sume indikatora do poslednjeg dogadjaja pre trenutka t
