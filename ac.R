@@ -11,6 +11,7 @@ ac = function(){
       t= -log(u)/lambdafix
         #Algoritam za AC method
       if (u1 <= Lambda(t)/lambdafix) {
+          #gledamo u koju polovinu je zapalo i po tome posledjujemo 
         ifelse(runif(1) >= 0.5, return(y), return(-y))
       }
   }
