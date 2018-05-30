@@ -11,8 +11,8 @@ broj_dogadjaja = function(T,t){
     return(max(which(cumsum(T)<t)))
 }
 
-#Generisemo 10 vrednosti u intervalu od 0 do 3 i gledamo koliko njih se desilo 
-#pre t=2 
+#Generisemo 10 vrednosti u intervalu od 0 do 3 i gledamo koliko njih 
+#njih se najvise desilo pre t=2 
 #Trenuci prispeca 
 (T = runif(10,0,3))
 t=2
