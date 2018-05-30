@@ -1,8 +1,6 @@
 #Brojimo broj dogadjaja do trenutka T
 set.seed(1)
 broj_dogadjaja = function(T,t){
-  if(sum(T)<t)
-    return(NA)
   #Ako se prvi dogadjaj desio posle t, nije doslo do nijednog dogadjaja
   if(T[1]>t)
     return(0)
