@@ -10,6 +10,7 @@ inverzna_transformacija = function(T_n,Lambda,n) {
     U=runif(1)
     s=s-log(U)
     #trazimo infimum td. \Lambda(a)=>s
+    #inf{v:\Lambda(u)>s}
     t=min(a[which(Vectorize(Lambda)(a)>=s)])
     T=c(T,t)
   }
