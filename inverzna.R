@@ -11,6 +11,7 @@ inverzna_transformacija = function(T_n,Lambda,n) {
     s=s-log(U)
     #trazimo infimum td. \Lambda(a)=>s der po metodu 
     #F^{-1}(a)= inf{a:\Lambda(a)>s}
+    #Funkcija vectorize radi isto kao apply funkcija
     t=min(a[which(vectorize(Lambda)(a)>=s)])
     T=c(T,t)
   }
