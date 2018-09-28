@@ -1,0 +1,101 @@
+#################
+### Korekcija ###
+#################
+#Monte Carlo
+#Na osnovu informacija iz resi-tablu zelimo da neparametrijski ocenimo koja polja su verovatnija od drugih.
+#Input:
+#
+#Ponavljacemo postupak briter-puta 
+#Znamo koliko mina vec imamo-bomba
+
+# deo b)
+
+MK_funkcija = function(matrica, broj_mina, N) {
+  #informacije koje imamo iz predhodnog rada sa resi tabelom
+  resiinfo   = as.vector(resi_tablu(matrica,broj_mina))
+  #preostali
+  rest = broj_mina - sum((resiinfo==-100))
+  #####Popunjujemo matricu
+  #Iniciramo iteraciju
+  iter = 0
+  #u ovu matricu cemo sacuvati nase slucajno generisane vrednosti
+  workmatrix = c(rep(0,(dim(matrica)[1])^2))
+  dimension = dim(matrica)[1]
+  povoljni = which(resiinfo==0)
+  
+  #proveravamo da li je broj na polju jednak mina-to mora da bude ispunjeno za nas uslov !
+  prava_matrica = function(matrica, dimension,broj_mina)
+  {
+    m= matrica
+    
+    m=cbind(rep(1,   dimension), m, rep(1,   dimension))
+    m=rbind(rep(1,   dimension+2), m, rep(1, dimension+2))
+    
+    for(i in 2:(  dimension+1))
+    {
+      for(j in 2:(  dimension+1))
+      {
+        vektor = c(m[i-1,j-1], m[i-1, j], m[i-1, j+1], m[i, j-1], m[i, j+1], m[i+1, j-1], m[i+1, j], m[i+1, j+1])
+        
+        for(k in 1:8)
+        {
+          
+          if(m[i, j]==k*10) 
+            
+            if(m[i,j] != 10*sum(vektor==-100)) 
+              return(FALSE) 
+        }
+      }
+      return(TRUE) 
+      
+    }
+  }
+  
+  ######### 
+  # Algoritam
+  ######
+  #Sa casa ponavljamo 
+  
+  for(i in 1:N){
+    pozicija = sample(povoljni,rest)
+    #dodeljujemo svakoj vrednost za bombu
+    resiinfo[pozicija] = -100 
+    
+    if( prava_matrica(matrix(resiinfo,nrow=dimension),dimension,broj_mina) == 1){
+      workmatrix[pozicija] = workmatrix[pozicija]+1
+      iter = iter +1
+    }
+    
+  }          
+  
+  #Napunili smo vektor
+  monte = matrix(workmatrix, ncol = dim(matrica)[1])/iter
+  #najmanji
+  #which.max, which.min nam daje minimalan element
+  minimalan = which.max(monte)
+  maksimalan = which.min(monte)
+  output = list(monte, minimalan, maksimalan)
+  return(output)
+  
+}
+
+#MK_funkcija(finalna, 10, 100000)
+"[[1]]
+         [,1]    [,2]    [,3]    [,4]    [,5]    [,6]    [,7]    [,8]    [,9]
+ [1,] 0.00000 0.00000 0.00000 0.20122 0.20054 0.20075 0.19834 0.20262 0.20046
+ [2,] 0.00000 0.00000 0.00000 0.00000 0.00000 0.20032 0.19848 0.20206 0.20036
+ [3,] 0.00000 0.00000 0.00000 0.00000 0.00000 0.00000 0.20161 0.20095 0.19686
+ [4,] 0.00000 0.00000 0.00000 0.00000 0.00000 0.00000 0.00000 0.00000 0.20102
+ [5,] 0.00000 0.00000 0.00000 0.00000 0.00000 0.00000 0.00000 0.00000 0.19802
+ [6,] 0.00000 0.00000 0.00000 0.00000 0.00000 0.00000 0.00000 0.00000 0.19990
+ [7,] 0.00000 0.00000 0.00000 0.00000 0.00000 0.00000 0.00000 0.00000 0.19848
+ [8,] 0.19807 0.19824 0.20129 0.00000 0.00000 0.00000 0.00000 0.00000 0.19994
+ [9,] 0.19987 0.19917 0.20093 0.00000 0.00000 0.00000 0.00000 0.00000 0.20050
+
+[[2]]
+[1] 64
+
+[[3]]
+[1] 1
+"
+
